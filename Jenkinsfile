@@ -40,8 +40,8 @@ pipeline {
     stage('Check Cluster') {
       steps {
         withKubeConfig([credentialsId: 'kubernetes-config']) {
-          sh 'kubectl cluster-info'
-          sh 'kubectl get nodes'
+          sh 'kubectl --insecure-skip-tls-verify=true cluster-info'
+          sh 'kubectl --insecure-skip-tls-verify=true get nodes'
         }
       }
     }
@@ -49,8 +49,8 @@ pipeline {
     stage('Deploy to Kubernetes') {
       steps {
         withKubeConfig([credentialsId: 'kubernetes-config']) {
-          sh 'kubectl apply -f deployment.yaml'
-          sh 'kubectl apply -f service.yaml'
+          sh 'kubectl --insecure-skip-tls-verify=true apply -f deployment.yaml'
+          sh 'kubectl --insecure-skip-tls-verify=true apply -f service.yaml'
         }
       }
     }

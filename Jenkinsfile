@@ -2,7 +2,6 @@ pipeline {
   environment {
     dockerimagename = "wmashal/react-app"
     dockerImage = ""
-    DOCKER_TLS_VERIFY = '0'
   }
   agent any
   stages {

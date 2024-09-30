@@ -29,6 +29,23 @@ pipeline {
         }
       }
     }
+   stage('Debug Kubeconfig') {
+      steps {
+        withKubeConfig([credentialsId: 'kubernetes-config']) {
+          sh 'kubectl config view --raw'
+        }
+      }
+    }
+    
+    stage('Check Cluster') {
+      steps {
+        withKubeConfig([credentialsId: 'kubernetes-config']) {
+          sh 'kubectl cluster-info'
+          sh 'kubectl get nodes'
+        }
+      }
+    }
+    
     stage('Deploy to Kubernetes') {
       steps {
         withKubeConfig([credentialsId: 'kubernetes-config']) {
